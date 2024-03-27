@@ -1,7 +1,7 @@
 [build]
   command = "ng build"
-  publish = "dist/food-recipe"
+  publish = "dist/project-mangment-system"
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
+  status = 200
