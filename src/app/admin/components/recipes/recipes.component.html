@@ -1,0 +1,137 @@
+<section>
+    <div class="header-page container ">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h4>Recipes <span>item</span></h4>
+                <p class="mb-0">You can now add your items that any user can order it from the Application and you can
+                    edit</p>
+            </div>
+            <div class="col-4 text-end">
+                <img src="../../../../assets/images/menu-avatar.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-9">
+            <h6>Recipes Table Details</h6>
+            <p>You can check all details</p>
+        </div>
+        <div class="col-3">
+            <button class="main" [routerLink]="'/dashboard/admin/recipes/add'">Add New Recipe</button>
+
+        </div>
+    </div>
+    <div class="mt-3 row align-items-center justify-content-between">
+        <div class="col-6 ">
+
+            <div class="input-group mb-3 ">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input [(ngModel)]="searchKey" (keyup.enter)="getRecipes()" type="text" class="form-control"
+                    placeholder="Search By Name" aria-label="Username" aria-describedby="basic-addon1">
+
+            </div>
+
+
+        </div>
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Tags</mat-label>
+                <!-- <mat-select  [(ngModel)]="tageId"  (selectionChange)="getRecipes()">
+                    <mat-option *ngFor="let item of tags" [value]="item.id">
+                        {{item.name}}</mat-option>
+
+                </mat-select> -->
+                <mat-select [(ngModel)]="tagId" (selectionChange)="getRecipes()">
+                    <mat-option>All</mat-option>
+                    <mat-option *ngFor="let item of tags" [value]="item.id">
+                        {{item.name}}</mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+
+        </div>
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Categories</mat-label>
+                <mat-select [(ngModel)]="categorieId" (selectionChange)="getRecipes()">
+                    <mat-option>All</mat-option>
+
+                    <mat-option *ngFor="let item of categories" [value]="item.id">{{item.name}}</mat-option>
+
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <div *ngIf="tableData.length>0">
+        <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>tag</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>creation Date</th>
+                <th>modification Date</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let item of tableData">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td class="w-25">
+                        <img [src]="item.imagePath?imagePath+item.imagePath:dummyImage" class="w-25" alt="">
+                    </td>
+                    <td>{{item.tag.name}}</td>
+
+                    <td>
+                        <span *ngFor="let item of item.category">{{item.name}} , </span>
+                    </td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.creationDate|date:'dd/MM/yyyy, h:mm a'}}</td>
+                    <td>{{item.modificationDate|date:'dd/MM/yyyy, h:mm a'}}</td>
+                    <td><button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon color="primary">more_horiz</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+
+                            <button [routerLink]="['/dashboard/admin/recipes/edit',item.id]" mat-menu-item>
+
+                                <mat-icon color="primary">edit_square</mat-icon>
+                                <span>edit</span>
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon color="primary">delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <mat-paginator [length]="tableResponse?.totalNumberOfRecords" [pageSize]="tableResponse?.pageSize"
+            [pageIndex]="tableResponse?.pageNumber" [pageSizeOptions]="pageSizeOptions" (page)="handlePageEvent($event)"
+            aria-label="Select page">
+
+        </mat-paginator>
+
+    </div>
+
+    <div *ngIf="tableData.length==0">
+        <div class="text-center">
+
+            <img src="../../../../assets/images/no-data.png" alt="">
+            <h5>No Data </h5>
+        </div>
+    </div>
+
+
+
+</section>

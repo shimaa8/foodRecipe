@@ -1,0 +1,29 @@
+<section class="bg-dark2 vh-100 ">
+    <div class="text-center py-3">
+        <a (click)="sendFlag()">
+
+            <img src="../../../assets/images/logo-no-text.svg" class="w-75" alt="">
+        </a>
+    </div>
+
+    <div class="mt-5">
+        <ul>
+            <!-- <li>
+                <a class="text-white">
+                    <span> <i class="fa-solid fa-house"></i></span>
+                    <span>Home</span>
+                </a>
+            </li> -->
+            <ng-container *ngFor="let item of Menu">
+                <li *ngIf="item.isActive">
+                    <a [routerLink]="item.link" routerLinkActive="bg-main-transparent">
+                        <span> <i [class]="item.icon"></i></span>
+                        <span *ngIf="!isClosed" class="text-capitalize">{{item.text}}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+
+        </ul>
+    </div>
+</section>

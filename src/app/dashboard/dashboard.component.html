@@ -1,0 +1,14 @@
+<div class="container-fluid ">
+    <div class="row ">
+        <div class=" px-0 " [class]="isClosed?'col-1':'col-2'">
+            <app-sidebar (flagEmitter)="handleFlag($event)"></app-sidebar>
+        </div>
+        <div class="" [class]="isClosed?'col-11':'col-10'">
+
+            <app-navbar></app-navbar>
+
+
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
